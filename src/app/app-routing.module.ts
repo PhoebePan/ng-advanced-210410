@@ -18,7 +18,8 @@ const routes: Routes = [
       { path: 'color/:type', component: ColorComponent }
     ]
   },
-  { path: '**', pathMatch: 'full', component: NotFoundComponent }
+  { path: 'components', loadChildren: () => import('./components/components.module').then(m => m.ComponentsModule) },
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
