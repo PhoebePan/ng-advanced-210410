@@ -5,11 +5,12 @@ import { Page2Component } from './page2/page2.component';
 import { Page1Component } from './page1/page1.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ColorComponent } from './utilities/color/color.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/dashboard' },
   { path: 'page1', component: Page1Component },
-  { path: 'page2', component: Page2Component },
+  { path: 'page2', component: Page2Component, canActivate: [AuthGuard] },
   { path: 'dashboard', component: DashboardComponent },
   {
     path: 'utilities',
