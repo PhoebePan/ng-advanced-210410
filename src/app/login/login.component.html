@@ -15,8 +15,9 @@
                               <div class="text-center">
                                   <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                               </div>
-<!-- <pre>data = {{ data | json }}</pre>
-<pre>form.value = {{ form.value | json }}</pre> -->
+<pre>data = {{ data | json }}</pre>
+<pre>form.value = {{ form.value | json }}</pre>
+<pre>form.value.extra = {{ form.value.extra | json }}</pre>
 <!-- <pre>
   value = {{ mEmail.value | json }}
   pristine = {{ mEmail.pristine | json }}
@@ -50,6 +51,18 @@
                                         <div class="invalid-feedback" *ngIf="mPassword.touched && mPassword.invalid && mPassword.errors.minlength">密碼請輸入至少 {{mPassword.errors.minlength.requiredLength}} 個字元</div>
                                         <div class="invalid-feedback" *ngIf="mPassword.touched && mPassword.invalid && mPassword.errors.pattern">請輸入符合規定的密碼</div>
                                   </div>
+                                  <section ngModelGroup="extra" #mExtra="ngModelGroup">
+
+                                    <div class="form-group">
+                                      <input type="text" class="form-control form-control-user" placeholder="輸入您的姓名"
+                                        ngModel #mExtraName="ngModel" name="name">
+                                    </div>
+                                    <div class="form-group">
+                                      <input type="text" class="form-control form-control-user" placeholder="輸入您的電話(09xx000000)"
+                                        ngModel #mExtraName="ngModel" name="tel" pattern="\d{10}">
+                                    </div>
+
+                                  </section>
                                   <div class="form-group">
                                       <div class="custom-control custom-checkbox small">
                                           <input type="checkbox" class="custom-control-input" id="customCheck"

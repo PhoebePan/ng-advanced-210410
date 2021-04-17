@@ -21,7 +21,6 @@ export class LoginComponent implements OnInit, OnDestroy{
   }
 
   onSubmit(form: NgForm){
-    console.log(form);
     if (form.valid) {
       console.log('送出表單', form.value);
     }
