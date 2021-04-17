@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, NgForm, Validators, FormArray } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 
 @Component({
   templateUrl: './login2.component.html',
@@ -8,9 +8,23 @@ import { FormBuilder, FormControl, FormGroup, NgForm, Validators, FormArray } fr
 export class Login2Component implements OnInit {
 
   data: any = {
-    email: 'user1@example.com',
-    password: '123defDEF',
-    isRememberMe: false
+    "email": "doggy.huang@gmail.com",
+    "password": "123789yuiT",
+    "isRememberMe": true,
+    "extra": [
+      {
+        "name": "1111",
+        "tel": "1111"
+      },
+      {
+        "name": "2222",
+        "tel": "2222"
+      },
+      {
+        "name": "3333",
+        "tel": "3333"
+      }
+    ]
   };
 
   origClass = '';
@@ -31,7 +45,7 @@ export class Login2Component implements OnInit {
         ],
         updateOn: 'blur'
        }),
-       password: this.fb.control('123ABCabc', {
+      password: this.fb.control('123ABCabc', {
         validators: [
           Validators.required,
           Validators.minLength(3),
@@ -40,15 +54,38 @@ export class Login2Component implements OnInit {
         updateOn: 'change'
       }),
       isRememberMe: true,
-      extra: this.fb.array([
-        this.makeExtra(),
-        this.makeExtra(),
-      ])
+      extra: this.fb.array([])
+    });
+
+    for (let i = 0; i < this.data.extra.length; i++) {
+        this.getFormArray('extra').push(this.makeExtra());
+    }
+
+    this.form.setValue(this.data);
+
+  }
+
+  resetForm() {
+    this.getFormArray('extra').clear()
+
+    for (let i = 0; i < this.data.extra.length; i++) {
+        this.getFormArray('extra').push(this.makeExtra());
+    }
+
+    this.form.reset(this.data);
+  }
+
+  makeExtra() {
+    return this.fb.group({
+      name: this.makeControl('輸入您的姓名(Name)'),
+      tel: this.makeControl('輸入您的電話(09xx000000)')
     });
   }
 
-  getFormArray(name: string) {
-    return this.form.get(name) as FormArray;
+  makeControl(placeholder: string) {
+    let ctl = this.fb.control('');
+    ctl['placeholder'] = placeholder;
+    return ctl;
   }
 
   showError(name, validation) {
@@ -57,11 +94,8 @@ export class Login2Component implements OnInit {
       && this.form.get(name).errors[validation];
   }
 
-  makeExtra() {
-    return this.fb.group({
-      name: this.fb.control(''),
-      tel: this.fb.control('')
-    });
+  getFormArray(name: string) {
+    return this.form.get(name) as FormArray;
   }
 
   addExtra() {
@@ -70,6 +104,7 @@ export class Login2Component implements OnInit {
   }
 
   onSubmit(form: FormGroup) {
+    console.log(form);
     if (form.valid) {
       console.log('送出表單', form.value);
     }
