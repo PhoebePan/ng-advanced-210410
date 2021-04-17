@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   templateUrl: './login.component.html',
@@ -7,6 +8,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 export class LoginComponent implements OnInit, OnDestroy{
   origClass = '';
   constructor() { }
+
+  data: any = {
+    email: '',
+    password: '',
+    isRememberMe: true
+  };
 
   ngOnInit(): void {
     this.origClass = document.body.className;
