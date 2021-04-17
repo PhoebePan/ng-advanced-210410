@@ -16,8 +16,8 @@
                                   <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                               </div>
 <!-- <pre>data = {{ data | json }}</pre>
-<pre>form.value = {{ form.value | json }}</pre>
-<pre>
+<pre>form.value = {{ form.value | json }}</pre> -->
+<!-- <pre>
   value = {{ mEmail.value | json }}
   pristine = {{ mEmail.pristine | json }}
   dirty = {{ mEmail.dirty | json }}
@@ -32,19 +32,19 @@
 </pre>
 <pre>form.invalid = {{form.invalid | json}}</pre>
 <pre>form.dirty = {{ form.dirty | json }}</pre> -->
-                              <form class="user" #form="ngForm"  [class.was-validated]="form.dirty && form.invalid">
+                              <form class="user" #form="ngForm" (ngSubmit)="onSubmit(form)" [class.was-validated]="form.dirty && form.invalid">
                                   <div class="form-group">
                                       <input type="email" class="form-control form-control-user"
                                         aria-describedby="emailHelp"
                                         placeholder="Enter Email Address..."
-                                        [(ngModel)]="data.email" #mEmail="ngModel" name="email" required email>
+                                        [ngModel]="data.email" #mEmail="ngModel" name="email" required email>
                                       <div class="invalid-feedback" *ngIf="mEmail.touched && mEmail.invalid && mEmail.errors.required">請輸入 Email</div>
                                       <div class="invalid-feedback" *ngIf="mEmail.touched && mEmail.invalid && mEmail.errors.email">請輸入 正確的 Email 格式</div>
                                   </div>
                                   <div class="form-group">
                                       <input type="password" class="form-control form-control-user"
                                           placeholder="Password"
-                                          [(ngModel)]="data.password" #mPassword="ngModel" name="password"
+                                          [ngModel]="data.password" #mPassword="ngModel" name="password"
                                           required minlength="3" maxlength="32" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{3,32}$">
                                         <div class="invalid-feedback" *ngIf="mPassword.touched && mPassword.invalid && mPassword.errors.required">請輸入密碼</div>
                                         <div class="invalid-feedback" *ngIf="mPassword.touched && mPassword.invalid && mPassword.errors.minlength">密碼請輸入至少 {{mPassword.errors.minlength.requiredLength}} 個字元</div>
@@ -53,7 +53,7 @@
                                   <div class="form-group">
                                       <div class="custom-control custom-checkbox small">
                                           <input type="checkbox" class="custom-control-input" id="customCheck"
-                                          [(ngModel)]="data.isRememberMe" #mIsRememberMe="ngModel" name="isRememberMe">
+                                          [ngModel]="data.isRememberMe" #mIsRememberMe="ngModel" name="isRememberMe">
                                           <label class="custom-control-label" for="customCheck">Remember  Me</label>
                                       </div>
                                   </div>

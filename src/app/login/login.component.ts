@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
 @Component({
   templateUrl: './login.component.html',
@@ -10,7 +10,7 @@ export class LoginComponent implements OnInit, OnDestroy{
   constructor() { }
 
   data: any = {
-    email: '',
+    email: '123@example.com',
     password: '',
     isRememberMe: true
   };
@@ -18,6 +18,13 @@ export class LoginComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
     this.origClass = document.body.className;
     document.body.className = 'bg-gradient-primary';
+  }
+
+  onSubmit(form: NgForm){
+    console.log(form);
+    if (form.valid) {
+      console.log('送出表單', form.value);
+    }
   }
 
   ngOnDestroy(): void {
