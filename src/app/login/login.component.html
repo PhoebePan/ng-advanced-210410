@@ -63,6 +63,12 @@
                                       <input type="text" class="form-control form-control-user" placeholder="輸入您的電話(09xx000000)"
                                         ngModel #mExtraName="ngModel" name="tel" pattern="\d{10}">
                                     </div>
+                                    <div class="form-group">
+                                      <input type="text" class="form-control form-control-user" placeholder="輸入您的身份證字號"
+                                      [class.is-invalid]="mExtraTwid.touched && mExtraTwid.invalid"
+                                        ngModel #mExtraTwid="ngModel" name="twid" pattern="[A-Z]\d{9}" twid>
+                                      <pre>{{ mExtraTwid.errors | json }}</pre>
+                                    </div>
 
                                   </section>
                                   <div class="form-group">

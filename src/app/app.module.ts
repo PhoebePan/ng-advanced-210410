@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { LayoutComponent } from './layout/layout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Login2Component } from './login2/login2.component';
+import { TwidDirective } from './twid.directive';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { Login2Component } from './login2/login2.component';
     ColorComponent,
     LoginComponent,
     LayoutComponent,
-    Login2Component
+    Login2Component,
+    TwidDirective
   ],
   imports: [
     BrowserModule,
