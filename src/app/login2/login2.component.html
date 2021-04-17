@@ -21,7 +21,7 @@
                            [class.is-invalid]="form.get('email').touched && form.get('email').invalid">
                     <div class="invalid-feedback" *ngIf="showError('email', 'required')">請輸入 Email</div>
                     <div class="invalid-feedback" *ngIf="showError('email', 'email')">請輸入正確的 Email 格式</div>
-<pre>value = {{ form.get('email').value | json }}
+<!-- <pre>value = {{ form.get('email').value | json }}
 pristine = {{ form.get('email').pristine | json }}
 dirty = {{ form.get('email').dirty | json }}
 touched = {{ form.get('email').touched | json }}
@@ -32,7 +32,7 @@ valid = {{ form.get('email').valid | json }}
 invalid = {{ form.get('email').invalid | json }}
 status = {{ form.get('email').status | json }}
 errors = {{ form.get('email').errors | json }}
-</pre>
+</pre> -->
                   </div>
                   <div class="form-group">
                     <input type="password" class="form-control form-control-user" id="exampleInputPassword" formControlName="password"
@@ -49,6 +49,25 @@ errors = {{ form.get('email').errors | json }}
                       formControlName="isRememberMe">
                       <label class="custom-control-label" for="customCheck">Remember Me</label>
                     </div>
+                  </div>
+                  <section formArrayName="extra">
+                    <section *ngFor="let g of getFormArray('extra').controls; let i=index" [formGroupName]="i">
+
+                      <div class="form-group">
+                        {{ i+1 }}
+                      </div>
+                      <div class="form-group">
+                        <input type="text" formControlName="name" class="form-control form-control-user" placeholder="輸入您的姓名">
+                      </div>
+                      <div class="form-group">
+                        <input type="text" formControlName="tel" class="form-control form-control-user" placeholder="輸入您的電話(09xx000000)">
+                      </div>
+
+
+                    </section>
+                  </section>
+                  <div class="form-group">
+                    <button type="button" (click)="addExtra()">＋</button>
                   </div>
                   <button type="submit" class="btn btn-primary btn-user btn-block">
                     Login

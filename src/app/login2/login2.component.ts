@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators, FormArray } from '@angular/forms';
 
 @Component({
   templateUrl: './login2.component.html',
@@ -39,14 +39,34 @@ export class Login2Component implements OnInit {
         ],
         updateOn: 'change'
       }),
-      isRememberMe: true
+      isRememberMe: true,
+      extra: this.fb.array([
+        this.makeExtra(),
+        this.makeExtra(),
+      ])
     });
+  }
+
+  getFormArray(name: string) {
+    return this.form.get(name) as FormArray;
   }
 
   showError(name, validation) {
     return this.form.get(name).invalid
       && this.form.get(name).dirty
       && this.form.get(name).errors[validation];
+  }
+
+  makeExtra() {
+    return this.fb.group({
+      name: this.fb.control(''),
+      tel: this.fb.control('')
+    });
+  }
+
+  addExtra() {
+    let extra = this.getFormArray('extra');
+    extra.push(this.makeExtra());
   }
 
   onSubmit(form: FormGroup) {
