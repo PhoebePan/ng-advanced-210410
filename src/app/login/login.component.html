@@ -33,12 +33,13 @@
 </pre>
 <pre>form.invalid = {{form.invalid | json}}</pre>
 <pre>form.dirty = {{ form.dirty | json }}</pre> -->
-                              <form class="user" #form="ngForm" (ngSubmit)="onSubmit(form)" [class.was-validated]="form.dirty && form.invalid">
+                              <form class="user" #form="ngForm" (ngSubmit)="onSubmit(form)">
                                   <div class="form-group">
                                       <input type="email" class="form-control form-control-user"
                                         aria-describedby="emailHelp"
                                         placeholder="Enter Email Address..."
-                                        [ngModel]="data.email" #mEmail="ngModel" name="email" required email>
+                                        [ngModel]="data.email" #mEmail="ngModel" name="email" required email
+                                        [class.is-invalid]="mEmail.touched && mEmail.invalid">
                                       <div class="invalid-feedback" *ngIf="mEmail.touched && mEmail.invalid && mEmail.errors.required">請輸入 Email</div>
                                       <div class="invalid-feedback" *ngIf="mEmail.touched && mEmail.invalid && mEmail.errors.email">請輸入 正確的 Email 格式</div>
                                   </div>
@@ -46,7 +47,8 @@
                                       <input type="password" class="form-control form-control-user"
                                           placeholder="Password"
                                           [ngModel]="data.password" #mPassword="ngModel" name="password"
-                                          required minlength="3" maxlength="32" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{3,32}$">
+                                          required minlength="3" maxlength="32" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{3,32}$"
+                                          [class.is-invalid]="mPassword.touched && mPassword.invalid">
                                         <div class="invalid-feedback" *ngIf="mPassword.touched && mPassword.invalid && mPassword.errors.required">請輸入密碼</div>
                                         <div class="invalid-feedback" *ngIf="mPassword.touched && mPassword.invalid && mPassword.errors.minlength">密碼請輸入至少 {{mPassword.errors.minlength.requiredLength}} 個字元</div>
                                         <div class="invalid-feedback" *ngIf="mPassword.touched && mPassword.invalid && mPassword.errors.pattern">請輸入符合規定的密碼</div>

@@ -14,14 +14,34 @@
                 </div>
                 <pre>data = {{ data | json }}</pre>
                 <pre>form.value = {{ form.value | json }}</pre>
-                <form class="user" [formGroup]="form">
+                <form class="user" [formGroup]="form" (ngSubmit)="onSubmit(form)">
                   <div class="form-group">
                     <input type="email" class="form-control form-control-user" id="exampleInputEmail" formControlName="email"
-                           aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                           aria-describedby="emailHelp" placeholder="Enter Email Address..."
+                           [class.is-invalid]="form.get('email').touched && form.get('email').invalid">
+                    <div class="invalid-feedback" *ngIf="showError('email', 'required')">請輸入 Email</div>
+                    <div class="invalid-feedback" *ngIf="showError('email', 'email')">請輸入正確的 Email 格式</div>
+<pre>value = {{ form.get('email').value | json }}
+pristine = {{ form.get('email').pristine | json }}
+dirty = {{ form.get('email').dirty | json }}
+touched = {{ form.get('email').touched | json }}
+untouched = {{ form.get('email').untouched | json }}
+enabled = {{ form.get('email').enabled | json }}
+disabled = {{ form.get('email').disabled | json }}
+valid = {{ form.get('email').valid | json }}
+invalid = {{ form.get('email').invalid | json }}
+status = {{ form.get('email').status | json }}
+errors = {{ form.get('email').errors | json }}
+</pre>
                   </div>
                   <div class="form-group">
                     <input type="password" class="form-control form-control-user" id="exampleInputPassword" formControlName="password"
-                           placeholder="Password">
+                           placeholder="Password"
+                           [class.is-invalid]="form.get('password').touched && form.get('password').invalid">
+                           <div class="invalid-feedback" *ngIf="showError('password', 'required')">請輸入密碼</div>
+                           <div class="invalid-feedback" *ngIf="showError('password', 'minlength')">密碼請輸入至少 {{form.get('password').errors.minlength.requiredLength}} 個字元</div>
+                           <div class="invalid-feedback" *ngIf="showError('password', 'pattern')">請輸入符合規定的密碼</div>
+                           <pre>errors = {{ form.get('password').errors | json }}</pre>
                   </div>
                   <div class="form-group">
                     <div class="custom-control custom-checkbox small">
