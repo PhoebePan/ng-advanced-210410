@@ -7,6 +7,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { ColorComponent } from './utilities/color/color.component';
 import { AuthGuard } from './auth.guard';
 import { LoginComponent } from './login/login.component';
+import { Login2Component } from './login2/login2.component';
 import { LayoutComponent } from './layout/layout.component';
 
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
     ]
   },
   { path: 'login', component: LoginComponent },
+  { path: 'login2', component: Login2Component },
   { path: '**', component: NotFoundComponent }
 ];
 
