@@ -1,5 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { isNationalIdentificationNumberValid } from 'taiwan-id-validator2'
+
+function ValidateTwId(c: FormControl): ValidationErrors | null {
+  if (!c.value) {
+    return null;
+  }
+  let result = isNationalIdentificationNumberValid(c.value);
+  if (result) {
+    return null;
+  } else {
+    return {
+      twid: true
+    };
+  }
+}
 
 @Component({
   templateUrl: './login2.component.html',
@@ -61,7 +76,7 @@ export class Login2Component implements OnInit {
         this.getFormArray('extra').push(this.makeExtra());
     }
 
-    this.form.setValue(this.data);
+    this.form.patchValue(this.data);
 
   }
 
@@ -78,12 +93,16 @@ export class Login2Component implements OnInit {
   makeExtra() {
     return this.fb.group({
       name: this.makeControl('輸入您的姓名(Name)'),
-      tel: this.makeControl('輸入您的電話(09xx000000)')
+      tel: this.makeControl('輸入您的電話(09xx000000)'),
+      twid: this.makeControl('請輸入您的身份證字號', [ValidateTwId])
     });
   }
 
-  makeControl(placeholder: string) {
+  makeControl(placeholder: string, validators?: ValidatorFn[]) {
     let ctl = this.fb.control('');
+    if (validators) {
+      ctl.setValidators(validators);
+    }
     ctl['placeholder'] = placeholder;
     return ctl;
   }
